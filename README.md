@@ -1,6 +1,63 @@
 ## Ruby 学习笔记
 
+本文主要使用 markdown 格式整理了 Ruby 编程语言学习的相关资料，可以直接在线阅读，也可以使用 SpaceVim 进行阅读：
+
+1. 安装 SpaceVim
+2. 载入相关语言模块：`lang#markdown` 和 `lang#ruby`
+3. 左侧章节目录导航快捷键 F2
+4. 运行当前代码块片段快捷键 `SPC l r`
+
+效果图如下：
+
+
+![图片](https://user-images.githubusercontent.com/13142418/62452427-c0476480-b7a2-11e9-884e-04e6a6b30aaa.png)
+
+也欢迎加入 Ruby 中文群一起交流学习：
+
 [![](https://img.shields.io/badge/Telegram-Ruby-blue.svg)](https://t.me/joinchat/EazwPxcE953p4ZkxJg-qTg)
+
+<!-- vim-markdown-toc GFM -->
+
+- [运算符](#运算符)
+  - [算术运算符](#算术运算符)
+  - [比较运算符](#比较运算符)
+  - [赋值运算符](#赋值运算符)
+  - [并行赋值](#并行赋值)
+- [注释](#注释)
+  - [多行注释](#多行注释)
+- [条件判断](#条件判断)
+  - [if...else 语句](#ifelse-语句)
+  - [if 修饰符](#if-修饰符)
+  - [unless 语句](#unless-语句)
+  - [unless 修饰符](#unless-修饰符)
+  - [case 语句](#case-语句)
+- [循环](#循环)
+  - [while 语句](#while-语句)
+  - [while 修饰符](#while-修饰符)
+  - [until 语句](#until-语句)
+  - [until 修饰符](#until-修饰符)
+  - [for 语句](#for-语句)
+  - [break 语句](#break-语句)
+  - [next 语句](#next-语句)
+  - [redo 语句](#redo-语句)
+  - [retry 语句](#retry-语句)
+- [方法](#方法)
+  - [从方法返回值](#从方法返回值)
+  - [return 语句](#return-语句)
+  - [可变数量的参数](#可变数量的参数)
+  - [类方法](#类方法)
+  - [alias 语句](#alias-语句)
+  - [undef 语句](#undef-语句)
+- [块](#块)
+  - [yield 语句](#yield-语句)
+  - [块和方法](#块和方法)
+  - [BEGIN 和 END 块](#begin-和-end-块)
+- [模块（Module）](#模块module)
+  - [require 语句](#require-语句)
+  - [include 语句](#include-语句)
+  - [Mixins](#mixins)
+
+<!-- vim-markdown-toc -->
 
 ### 运算符
 
