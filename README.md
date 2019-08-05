@@ -62,6 +62,9 @@
 - [数组（Array）](#数组array)
   - [创建数组](#创建数组)
   - [数组内建方法](#数组内建方法)
+- [哈希（Hash）](#哈希hash)
+  - [创建哈希](#创建哈希)
+  - [哈希内置方法](#哈希内置方法)
 
 <!-- vim-markdown-toc -->
 
@@ -1450,3 +1453,85 @@ puts "#{num}"
 ```
 6
 ```
+
+
+### 哈希（Hash）
+
+哈希（Hash）是类似 "employee" => "salary" 这样的键值对的集合。哈希的索引是通过任何对象类型的任意键来完成的，而不是一个整数索引，其他与数组相似。
+
+通过键或值遍历哈希的顺序看起来是随意的，且通常不是按照插入顺序。如果您尝试通过一个不存在的键访问哈希，则方法会返回 nil。
+
+#### 创建哈希
+
+与数组一样，有各种不同的方式来创建哈希。您可以通过 new 类方法创建一个空的哈希：
+
+```
+months = Hash.new
+```
+
+您也可以使用 new 创建带有默认值的哈希，不带默认值的哈希是 nil：
+
+```
+months = Hash.new( "month" )
+```
+
+或
+
+```
+months = Hash.new "month"
+```
+
+当您访问带有默认值的哈希中的任意键时，如果键或值不存在，访问哈希将返回默认值：
+
+```ruby
+#!/usr/bin/ruby
+
+months = Hash.new( "month" )
+
+puts "#{months[0]}"
+puts "#{months[72]}"
+```
+
+
+```ruby
+#!/usr/bin/ruby
+
+H = Hash["a" => 100, "b" => 200]
+
+puts "#{H['a']}"
+puts "#{H['b']}"
+```
+
+您可以使用任何的 Ruby 对象作为键或值，甚至可以使用数组，所以下面的实例是一个有效的实例：
+
+```
+[1,"jan"] => "January"
+```
+
+#### 哈希内置方法
+
+我们需要有一个 Hash 对象的实例来调用 Hash 方法。下面是创建 Hash 对象实例的方式：
+
+```
+Hash[[key =>|, value]* ] or
+
+Hash.new [or] Hash.new(obj) [or]
+
+Hash.new { |hash, key| block }
+```
+
+这将返回一个使用给定对象进行填充的新的哈希。现在，使用创建的对象，我们可以调用任意可用的实例方法。例如：
+
+```ruby
+#!/usr/bin/ruby
+
+$, = ", "
+months = Hash.new( "month" )
+
+months = {"1" => "January", "2" => "February"}
+
+keys = months.keys
+
+puts "#{keys}"
+```
+
