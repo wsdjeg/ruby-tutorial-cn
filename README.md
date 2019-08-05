@@ -1,5 +1,7 @@
 ## Ruby 学习笔记
 
+[![](https://img.shields.io/badge/Telegram-Ruby-blue.svg)](https://t.me/joinchat/EazwPxcE953p4ZkxJg-qTg)
+
 ### 运算符
 
 #### 算术运算符
