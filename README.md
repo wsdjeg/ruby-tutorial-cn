@@ -9,7 +9,6 @@
 
 效果图如下：
 
-
 ![图片](https://user-images.githubusercontent.com/13142418/62452427-c0476480-b7a2-11e9-884e-04e6a6b30aaa.png)
 
 也欢迎加入 Ruby 中文群一起交流学习：
@@ -58,6 +57,7 @@
   - [Mixins](#mixins)
 - [字符串（String）](#字符串string)
   - [双引号字符串](#双引号字符串)
+  - [转义字符](#转义字符)
 
 <!-- vim-markdown-toc -->
 
@@ -161,7 +161,7 @@ puts "Hello, Ruby!"
 =begin
 这是一个多行注释。
 可扩展至任意数量的行。
-但 =begin 和 =end 只能出现在第一行和最后一行。 
+但 =begin 和 =end 只能出现在第一行和最后一行。
 =end
 ```
 
@@ -207,7 +207,6 @@ end
 
 ![图片](https://user-images.githubusercontent.com/13142418/62419681-b9dcbe00-b6b8-11e9-907a-aedd3a797f32.png)
 
-
 #### if 修饰符
 
 语法
@@ -229,7 +228,6 @@ puts "debug\n" if $debug
 
 ![图片](https://user-images.githubusercontent.com/13142418/62419702-66b73b00-b6b9-11e9-95d0-21584614add6.png)
 
-
 #### unless 语句
 
 语法
@@ -242,7 +240,7 @@ unless conditional [then]
 end
 ```
 
-unless式和 if式作用相反，即如果 conditional 为假，则执行 code。如果 conditional 为真，则执行 else 子句中指定的 code。
+unless 式和 if 式作用相反，即如果 conditional 为假，则执行 code。如果 conditional 为真，则执行 else 子句中指定的 code。
 
 实例
 
@@ -258,7 +256,6 @@ end
 ```
 
 ![图片](https://user-images.githubusercontent.com/13142418/62419722-cca3c280-b6b9-11e9-807e-f6c7b88420b8.png)
-
 
 #### unless 修饰符
 
@@ -299,7 +296,7 @@ case expression
 end
 ```
 
-case先对一个 expression 进行匹配判断，然后根据匹配结果进行分支选择。
+case 先对一个 expression 进行匹配判断，然后根据匹配结果进行分支选择。
 
 它使用 ===运算符比较 when 指定的 expression，若一致的话就执行 when 部分的内容。
 
@@ -358,7 +355,6 @@ end
 
 ![图片](https://user-images.githubusercontent.com/13142418/62419785-5902b500-b6bb-11e9-85a4-130587abf2a2.png)
 
-
 ### 循环
 
 Ruby 中的循环用于执行相同的代码块若干次。
@@ -401,8 +397,7 @@ while $i < $num  do
 end
 ```
 
-
-####  while 修饰符
+#### while 修饰符
 
 语法
 
@@ -413,8 +408,8 @@ code while condition
 或者
 
 ```
-begin 
-  code 
+begin
+  code
 end while conditional
 ```
 
@@ -434,7 +429,6 @@ begin
    $i +=1
 end while $i < $num
 ```
-
 
 #### until 语句
 
@@ -462,7 +456,6 @@ until $i > $num  do
    $i +=1;
 end
 ```
-
 
 #### until 修饰符
 
@@ -544,7 +537,6 @@ for...in 循环几乎是完全等价于：
 end
 ```
 
-
 #### break 语句
 
 语法
@@ -568,7 +560,6 @@ for i in 0..5
    puts "局部变量的值为 #{i}"
 end
 ```
-
 
 #### next 语句
 
@@ -661,7 +652,6 @@ end
 
 这将产生以下结果，并会进入一个无限循环：
 
-
 ### 方法
 
 Ruby 方法与其他编程语言中的函数类似。Ruby 方法用于捆绑一个或多个重复的语句到一个单元中。
@@ -681,7 +671,7 @@ end
 所以，您可以定义一个简单的方法，如下所示：
 
 ```
-def method_name 
+def method_name
    expr..
 end
 ```
@@ -745,8 +735,6 @@ puts tvar
 
 在调用这个方法时，将返回最后一个声明的变量 k。
 
-
-
 #### return 语句
 
 Ruby 中的 return 语句用于从 Ruby 方法中返回一个或多个值。
@@ -772,7 +760,6 @@ return 12
 return 1,2,3
 ```
 
-
 看看下面的实例：
 
 ```ruby
@@ -787,7 +774,6 @@ end
 var = test
 puts var
 ```
-
 
 #### 可变数量的参数
 
@@ -873,7 +859,7 @@ undef 方法名
 
 实例
 
-下面的实例取消名为 bar的方法定义：
+下面的实例取消名为 bar 的方法定义：
 
 ```
 undef bar
@@ -934,7 +920,7 @@ def test
    yield 100
 end
 test {
-   |i| 
+   |i|
    puts "你在块 #{i} 内"
 }
 ```
@@ -989,7 +975,7 @@ test{ puts "Hello world"}
 
 本实例是实现块的最简单的方式。您使用 yield 语句调用 test 块。
 
-但是如果方法的最后一个参数前带有 &，那么您可以向该方法传递一个块，且这个块可被赋给最后一个参数。如果 * 和 & 同时出现在参数列表中，& 应放在后面。
+但是如果方法的最后一个参数前带有 &，那么您可以向该方法传递一个块，且这个块可被赋给最后一个参数。如果 \* 和 & 同时出现在参数列表中，& 应放在后面。
 
 ```ruby
 #!/usr/bin/ruby
@@ -1008,12 +994,12 @@ test { puts "Hello World!"}
 #!/usr/bin/ruby
 # -*- coding: UTF-8 -*-
 
-BEGIN { 
+BEGIN {
   # BEGIN 代码块
   puts "BEGIN 代码块"
-} 
+}
 
-END { 
+END {
   # END 代码块
   puts "END 代码块"
 }
@@ -1270,3 +1256,42 @@ puts "x 的值为 #{ x }"
 puts "x + y 的值为 #{ x + y }"
 puts "x + y + z 的平均值为 #{ (x + y + z)/3 }"
 ```
+
+Ruby 中还支持一种采用 %q 和 %Q 来引导的字符串变量，%q 使用的是单引号引用规则，而 %Q 是双引号引用规则，后面再接一个 (! [ { 等等的开始界定符和与 } ] ) 等等的末尾界定符。
+
+跟在 q 或 Q 后面的字符是分界符.分界符可以是任意一个非字母数字的单字节字符.如:[,{,(,<,!等,字符串会一直读取到发现相匹配的结束符为止.
+
+```ruby
+#!/usr/bin/ruby
+# -*- coding: UTF-8 -*-
+
+desc1 = %Q{Ruby 的字符串可以使用 '' 和 ""。}
+desc2 = %q|Ruby 的字符串可以使用 '' 和 ""。|
+
+puts desc1
+puts desc2
+```
+
+#### 转义字符
+
+下标列出了可使用反斜杠符号转义的转义字符或非打印字符。
+
+注意：在一个双引号括起的字符串内，转义字符会被解释；在一个单引号括起的字符串内，转义字符会被保留。
+
+| 反斜杠符号 | 十六进制字符 | 描述                                             |
+| ---------- | ------------ | ------------------------------------------------ |
+| \a         | 0x07         | 报警符                                           |
+| \b         | 0x08         | 退格键                                           |
+| \cx        |              | Control-x                                        |
+| \C-x       |              | Control-x                                        |
+| \e         | 0x1b         | 转义符                                           |
+| \f         | 0x0c         | 换页符                                           |
+| \M-\C-x    |              | Meta-Control-x                                   |
+| \n         | 0x0a         | 换行符                                           |
+| \nnn       |              | 八进制表示法，其中 n 的范围为 0.7                |
+| \r         | 0x0d         | 回车符                                           |
+| \s         | 0x20         | 空格符                                           |
+| \t         | 0x09         | 制表符                                           |
+| \v         | 0x0b         | 垂直制表符                                       |
+| \x         |              | 字符 x                                           |
+| \xnn       |              | 十六进制表示法，其中 n 的范围为 0.9、 a.f 或 A.F |
