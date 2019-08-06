@@ -94,7 +94,8 @@
   - [类方法 & 类变量](#类方法--类变量)
   - [to_s 方法](#to_s-方法)
   - [访问控制](#访问控制)
-- [类的继承](#类的继承)
+  - [类的继承](#类的继承)
+  - [方法重载](#方法重载)
 
 <!-- vim-markdown-toc -->
 
@@ -2404,7 +2405,7 @@ puts "Area of the box is : #{a}"
 box.printArea()
 ```
 
-### 类的继承
+#### 类的继承
 
 
 继承，是面向对象编程中最重要的概念之一。继承允许我们根据另一个类定义一个类，这样使得创建和维护应用程序变得更加容易。
@@ -2445,4 +2446,41 @@ box = BigBox.new(10, 20)
 
 # 输出面积
 box.printArea()
+```
+
+#### 方法重载
+
+虽然您可以在派生类中添加新的功能，但有时您可能想要改变已经在父类中定义的方法的行为。这时您可以保持方法名称不变，重载方法的功能即可，如下面实例所示：
+
+
+```ruby
+#!/usr/bin/ruby -w
+
+# 定义类
+class Box
+   # 构造器方法
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+   # 实例方法
+   def getArea
+      @width * @height
+   end
+end
+
+# 定义子类
+class BigBox < Box
+
+   # 改变已有的 getArea 方法
+   def getArea
+      @area = @width * @height
+      puts "Big box area is : #@area"
+   end
+end
+
+# 创建对象
+box = BigBox.new(10, 20)
+
+# 使用重载的方法输出面积
+box.getArea()
 ```
