@@ -99,6 +99,10 @@
   - [类的继承](#类的继承)
   - [方法重载](#方法重载)
   - [运算符重载](#运算符重载)
+  - [冻结对象](#冻结对象)
+  - [类常量](#类常量)
+  - [使用 allocate 创建对象](#使用-allocate-创建对象)
+  - [类信息](#类信息)
 
 <!-- vim-markdown-toc -->
 
@@ -2522,4 +2526,149 @@ box2 = Box.new(2,4)
 puts box1
 puts box2
 puts box1 + box2
+```
+
+
+#### 冻结对象
+
+有时候，我们想要防止对象被改变。在 Object 中，freeze 方法可实现这点，它能有效地把一个对象变成一个常量。任何对象都可以通过调用 Object.freeze 进行冻结。冻结对象不能被修改，也就是说，您不能改变它的实例变量。
+
+您可以使用 Object.frozen? 方法检查一个给定的对象是否已经被冻结。如果对象已被冻结，该方法将返回 true，否则返回一个 false 值。下面的实例解释了这个概念：
+
+```ruby
+#!/usr/bin/ruby -w
+
+# 定义类
+class Box
+   # 构造器方法
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+
+   # 访问器方法
+   def getWidth
+      @width
+   end
+   def getHeight
+      @height
+   end
+
+   # 设置器方法
+   def setWidth=(value)
+      @width = value
+   end
+   def setHeight=(value)
+      @height = value
+   end
+end
+
+# 创建对象
+box = Box.new(10, 20)
+
+# 让我们冻结该对象
+box.freeze
+if( box.frozen? )
+   puts "Box object is frozen object"
+else
+   puts "Box object is normal object"
+end
+
+# 现在尝试使用设置器方法
+box.setWidth = 30
+box.setHeight = 50
+
+# 使用访问器方法
+x = box.getWidth()
+y = box.getHeight()
+
+puts "Width of the box is : #{x}"
+puts "Height of the box is : #{y}"
+```
+
+
+
+#### 类常量
+
+您可以在类的内部定义一个常量，通过把一个直接的数值或字符串值赋给一个变量来定义的，常量的定义不需要使用 @ 或 @@。按照惯例，常量的名称使用大写。
+
+一旦常量被定义，您就不能改变它的值，您可以在类的内部直接访问常量，就像是访问变量一样，但是如果您想要在类的外部访问常量，那么您必须使用 classname::constant，如下面实例所示。
+
+```ruby
+#!/usr/bin/ruby -w
+
+# 定义类
+class Box
+   BOX_COMPANY = "TATA Inc"
+   BOXWEIGHT = 10
+   # 构造器方法
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+   # 实例方法
+   def getArea
+      @width * @height
+   end
+end
+
+# 创建对象
+box = Box.new(10, 20)
+
+# 调用实例方法
+a = box.getArea()
+puts "Area of the box is : #{a}"
+puts Box::BOX_COMPANY
+puts "Box weight is: #{Box::BOXWEIGHT}"
+```
+
+
+#### 使用 allocate 创建对象
+
+可能有一种情况，您想要在不调用对象构造器 initialize 的情况下创建对象，即，使用 new 方法创建对象，在这种情况下，您可以调用 allocate 来创建一个未初始化的对象，如下面实例所示：
+
+```ruby
+#!/usr/bin/ruby -w
+
+# 定义类
+class Box
+   attr_accessor :width, :height
+
+   # 构造器方法
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+
+   # 实例方法
+   def getArea
+      @width * @height
+   end
+end
+
+# 使用 new 创建对象
+box1 = Box.new(10, 20)
+
+# 使用 allocate 创建两一个对象
+box2 = Box.allocate
+
+# 使用 box1 调用实例方法
+a = box1.getArea()
+puts "Area of the box is : #{a}"
+
+# 使用 box2 调用实例方法
+a = box2.getArea()
+puts "Area of the box is : #{a}"
+```
+
+
+#### 类信息
+
+如果类定义是可执行代码，这意味着，它们可在某个对象的上下文中执行，self 必须引用一些东西。让我们来看看下面的实例：.
+
+```ruby
+#!/usr/bin/ruby -w
+
+class Box
+   # 输出类信息
+   puts "Type of self = #{self.type}"
+   puts "Name of self = #{self.name}"
+end
 ```
