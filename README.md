@@ -1,4 +1,5 @@
 ## Ruby 学习笔记
+
 > ruby --version > ruby 2.6.1p33 (2019-01-30 revision 66950) [x64-mingw32]
 
 在入门学习 Ruby 的过程中，看了不少网上的教程，经常遇到的是明明代码和教程上完全一模一样，但是运行后各种报错。
@@ -27,6 +28,7 @@
   - [编辑器配置](#编辑器配置)
   - [第一个程序](#第一个程序)
 - [中文编码](#中文编码)
+- [命令行选项](#命令行选项)
 - [运算符](#运算符)
   - [算术运算符](#算术运算符)
   - [比较运算符](#比较运算符)
@@ -198,10 +200,10 @@ puts "你好，世界！";
 以上程序执行输出结果为：
 
 ```
-invalid multibyte char (US-ASCII) 
+invalid multibyte char (US-ASCII)
 ```
 
-以上出错信息显示了 Ruby 使用用 ASCII 编码来读源码，中文会出现乱码，解决方法为只要在文件开头加入 `# -*- coding: UTF-8 -*-`（EMAC写法） 或者 `#coding=utf-8` 就行了。
+以上出错信息显示了 Ruby 使用用 ASCII 编码来读源码，中文会出现乱码，解决方法为只要在文件开头加入 `# -*- coding: UTF-8 -*-`（EMAC 写法） 或者 `#coding=utf-8` 就行了。
 
 实例
 
@@ -214,8 +216,49 @@ puts "你好，世界！";
 
 所以如果大家再学习过程中，源代码文件中，若包含中文编码，则需要注意两点：
 
-1. 必须在首行添加 `# -*- coding: UTF-8 -*-`,告诉解释器使用utf-8来解析源码。
-2. 必须设置编辑器保存文件的编码为utf-8。
+1. 必须在首行添加 `# -*- coding: UTF-8 -*-`,告诉解释器使用 utf-8 来解析源码。
+2. 必须设置编辑器保存文件的编码为 utf-8。
+
+### 命令行选项
+
+Ruby 一般是从命令行运行，方式如下：
+
+```
+$ ruby [ options ] [.] [ programfile ] [ arguments ... ]
+```
+
+解释器可以通过下列选项被调用，来控制解释器的环境和行为。
+
+| 选项        | 描述                                                                                                                                     |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| -a          | 与 -n 或 -p 一起使用时，可以打开自动拆分模式(auto split mode)。请查看 -n 和 -p 选项。                                                    |
+| -c          | 只检查语法，不执行程序。                                                                                                                 |
+| -C dir      | 在执行前改变目录（等价于 -X）。                                                                                                          |
+| -d          | 启用调试模式（等价于 -debug）。                                                                                                          |
+| -F pat      | 指定 pat 作为默认的分离模式（\$;）。                                                                                                     |
+| -e prog     | 指定 prog 作为程序在命令行中执行。可以指定多个 -e 选项，用来执行多个程序。                                                               |
+| -h          | 显示命令行选项的一个概览。                                                                                                               |
+| -i [        | ext] 把文件内容重写为程序输出。原始文件会被加上扩展名 ext 保存下来。如果未指定 ext，原始文件会被删除。                                   |
+| -I dir      | 添加 dir 作为加载库的目录。                                                                                                              |
+| -K [ kcode] | 指定多字节字符集编码。e 或 E 对应 EUC（extended Unix code），s 或 S 对应 SJIS（Shift-JIS），u 或 U 对应 UTF-8，a、A、n 或 N 对应 ASCII。 |
+| -l          | 启用自动行尾处理。从输入行取消一个换行符，并向输出行追加一个换行符。                                                                     |
+| -n          | 把代码放置在一个输入循环中（就像在 while gets; ... end 中一样）。                                                                        |
+| -0[ octal]  | 设置默认的记录分隔符（\$/）为八进制。如果未指定 octal 则默认为 。                                                                        |
+| -p          | 把代码放置在一个输入循环中。在每次迭代后输出变量 \$\_ 的值。                                                                             |
+| -r lib      | 使用 require 来加载 lib 作为执行前的库。                                                                                                 |
+| -s          | 解读程序名称和文件名参数之间的匹配模式 -xxx 的任何参数作为开关，并定义相应的变量。                                                       |
+| -T [level]  | 设置安全级别，执行不纯度测试（如果未指定 level，则默认值为 1）。                                                                         |
+| -v          | 显示版本，并启用冗余模式。                                                                                                               |
+| -w          | 启用冗余模式。如果未指定程序文件，则从 STDIN 读取。                                                                                      |
+| -x [dir]    | 删除 #!ruby 行之前的文本。如果指定了 dir，则把目录改变为 dir。                                                                           |
+| -X dir      | 在执行前改变目录（等价于 -C）。                                                                                                          |
+| -y          | 启用解析器调试模式。                                                                                                                     |
+| --copyright | 显示版权声明。                                                                                                                           |
+| --debug     | 启用调试模式（等价于 -d）。                                                                                                              |
+| --help      | 显示命令行选项的一个概览（等价于 -h）。                                                                                                  |
+| --version   | 显示版本。                                                                                                                               |
+| --verbose   | 启用冗余模式（等价于 -v）。设置 \$VERBOSE 为 true。                                                                                      |
+| --yydebug   | 启用解析器调试模式（等价于 -y）。                                                                                                        |
 
 ### 运算符
 
@@ -1863,7 +1906,6 @@ b = a.collect{
 puts b
 ```
 
-
 ### 文件的输入与输出
 
 Ruby 提供了一整套 I/O 相关的方法，在内核（Kernel）模块中实现。所有的 I/O 方法派生自 IO 类。
@@ -1933,7 +1975,6 @@ print "Hello World"
 print "Good Morning"
 ```
 
-
 ### 异常
 
 异常和执行总是被联系在一起。如果您打开一个不存在的文件，且没有恰当地处理这种情况，那么您的程序则被认为是低质量的。
@@ -1946,16 +1987,16 @@ Ruby 提供了一个完美的处理异常的机制。我们可以在 begin/end �
 
 ```
 begin #开始
- 
+
  raise.. #抛出异常
- 
+
 rescue [ExceptionType = StandardException] #捕获指定类型的异常 缺省值是StandardException
  $! #表示异常信息
  $@ #表示异常出现的代码位置
 else #其余异常
  ..
 ensure #不管有没有异常，进入该代码块
- 
+
 end #结束
 ```
 
@@ -1980,7 +2021,6 @@ rescue
 end
 print file, "==", STDIN, "\n"
 ```
-
 
 #### retry 语句
 
@@ -2032,11 +2072,11 @@ end
 语法
 
 ```
-raise 
+raise
 
 OR
 
-raise "Error Message" 
+raise "Error Message"
 
 OR
 
@@ -2060,14 +2100,14 @@ raise ExceptionType, "Error Message" condition
 ```ruby
 #!/usr/bin/ruby
 
-begin  
-    puts 'I am before the raise.'  
-    raise 'An error has occurred.'  
-    puts 'I am after the raise.'  
-rescue  
-    puts 'I am rescued.'  
-end  
-puts 'I am after the begin block.'  
+begin
+    puts 'I am before the raise.'
+    raise 'An error has occurred.'
+    puts 'I am after the raise.'
+rescue
+    puts 'I am rescued.'
+end
+puts 'I am after the begin block.'
 ```
 
 另一个演示 raise 用法的实例：
@@ -2075,11 +2115,11 @@ puts 'I am after the begin block.'
 ```ruby
 #!/usr/bin/ruby
 
-begin  
-  raise 'A test exception.'  
-rescue Exception => e  
-  puts e.message  
-  puts e.backtrace.inspect  
+begin
+  raise 'A test exception.'
+rescue Exception => e
+  puts e.message
+  puts e.backtrace.inspect
 end
 ```
 
@@ -2092,12 +2132,12 @@ ensure 子句做的就是这个。ensure 放在最后一个 rescue 子句后，�
 语法
 
 ```
-begin 
+begin
    #.. 过程
    #.. 抛出异常
-rescue 
-   #.. 处理错误 
-ensure 
+rescue
+   #.. 处理错误
+ensure
    #.. 最后确保执行
    #.. 这总是会执行
 end
@@ -2125,14 +2165,14 @@ else 子句的主体只有在代码主体没有抛出异常时执行。
 语法
 
 ```
-begin 
-   #.. 过程 
+begin
+   #.. 过程
    #.. 抛出异常
-rescue 
+rescue
    #.. 处理错误
 else
    #.. 如果没有异常则执行
-ensure 
+ensure
    #.. 最后确保执行
    #.. 这总是会执行
 end
@@ -2154,7 +2194,7 @@ ensure
 end
 ```
 
-使用 $! 变量可以捕获抛出的错误消息。
+使用 \$! 变量可以捕获抛出的错误消息。
 
 #### Catch 和 Throw
 
@@ -2241,8 +2281,7 @@ end
 end
 ```
 
-在这里，最重要的一行是 raise FileSaveError.new($!)。我们调用 raise 来示意异常已经发生，把它传给 FileSaveError 的一个新的实例，由于特定的异常引起数据写入失败。
-
+在这里，最重要的一行是 raise FileSaveError.new(\$!)。我们调用 raise 来示意异常已经发生，把它传给 FileSaveError 的一个新的实例，由于特定的异常引起数据写入失败。
 
 ### 面向对象
 
@@ -2272,7 +2311,6 @@ end
 box1 = Box.new
 box2 = Box.new
 ```
-
 
 #### initialize 方法
 
@@ -2405,13 +2443,11 @@ a = box.getArea()
 puts "Area of the box is : #{a}"
 ```
 
-
 #### 类方法 & 类变量
 
 类变量是在类的所有实例中共享的变量。换句话说，类变量的实例可以被所有的对象实例访问。类变量以两个 @ 字符（@@）作为前缀，类变量必须在类定义中被初始化，如下面实例所示。
 
 类方法使用 def self.methodname() 定义，类方法以 end 分隔符结尾。类方法可使用带有类名称的 classname.methodname 形式调用，如下面实例所示：
-
 
 ```ruby
 #!/usr/bin/ruby -w
@@ -2439,8 +2475,6 @@ box2 = Box.new(30, 100)
 Box.printCount()
 ```
 
-
-
 #### to_s 方法
 
 您定义的任何类都有一个 to_s 实例方法来返回对象的字符串表示形式。下面是一个简单的实例，根据 width 和 height 表示 Box 对象：
@@ -2465,8 +2499,6 @@ box = Box.new(10, 20)
 # 自动调用 to_s 方法
 puts "String representation of box is : #{box}"
 ```
-
-
 
 #### 访问控制
 
@@ -2525,7 +2557,6 @@ box.printArea()
 
 #### 类的继承
 
-
 继承，是面向对象编程中最重要的概念之一。继承允许我们根据另一个类定义一个类，这样使得创建和维护应用程序变得更加容易。
 
 继承有助于重用代码和快速执行，不幸的是，Ruby 不支持多继承，但是 Ruby 支持 mixins。mixin 就像是多继承的一个特定实现，在多继承中，只有接口部分是可继承的。
@@ -2570,7 +2601,6 @@ box.printArea()
 
 虽然您可以在派生类中添加新的功能，但有时您可能想要改变已经在父类中定义的方法的行为。这时您可以保持方法名称不变，重载方法的功能即可，如下面实例所示：
 
-
 ```ruby
 #!/usr/bin/ruby -w
 
@@ -2603,11 +2633,9 @@ box = BigBox.new(10, 20)
 box.getArea()
 ```
 
-
 #### 运算符重载
 
-我们希望使用 + 运算符执行两个 Box 对象的向量加法，使用 * 运算符来把 Box 的 width 和 height 相乘，使用一元运算符 - 对 Box 的 width 和 height 求反。下面是一个带有数学运算符定义的 Box 类版本：
-
+我们希望使用 + 运算符执行两个 Box 对象的向量加法，使用 \* 运算符来把 Box 的 width 和 height 相乘，使用一元运算符 - 对 Box 的 width 和 height 求反。下面是一个带有数学运算符定义的 Box 类版本：
 
 ```ruby
 #!/usr/bin/ruby -w
@@ -2638,7 +2666,6 @@ puts box1
 puts box2
 puts box1 + box2
 ```
-
 
 #### 冻结对象
 
@@ -2696,8 +2723,6 @@ puts "Width of the box is : #{x}"
 puts "Height of the box is : #{y}"
 ```
 
-
-
 #### 类常量
 
 您可以在类的内部定义一个常量，通过把一个直接的数值或字符串值赋给一个变量来定义的，常量的定义不需要使用 @ 或 @@。按照惯例，常量的名称使用大写。
@@ -2730,7 +2755,6 @@ puts "Area of the box is : #{a}"
 puts Box::BOX_COMPANY
 puts "Box weight is: #{Box::BOXWEIGHT}"
 ```
-
 
 #### 使用 allocate 创建对象
 
@@ -2768,7 +2792,6 @@ puts "Area of the box is : #{a}"
 a = box2.getArea()
 puts "Area of the box is : #{a}"
 ```
-
 
 #### 类信息
 
