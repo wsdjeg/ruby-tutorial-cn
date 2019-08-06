@@ -84,6 +84,17 @@
   - [else 语句](#else-语句)
   - [Catch 和 Throw](#catch-和-throw)
   - [类 Exception](#类-exception)
+- [面向对象](#面向对象)
+  - [类定义](#类定义)
+  - [定义对象](#定义对象)
+  - [initialize 方法](#initialize-方法)
+  - [实例变量](#实例变量)
+  - [访问器 & 设置器 方法](#访问器--设置器-方法)
+  - [实例方法](#实例方法)
+  - [类方法 & 类变量](#类方法--类变量)
+  - [to_s 方法](#to_s-方法)
+  - [访问控制](#访问控制)
+- [类的继承](#类的继承)
 
 <!-- vim-markdown-toc -->
 
@@ -2112,3 +2123,326 @@ end
 ```
 
 在这里，最重要的一行是 raise FileSaveError.new($!)。我们调用 raise 来示意异常已经发生，把它传给 FileSaveError 的一个新的实例，由于特定的异常引起数据写入失败。
+
+
+### 面向对象
+
+Ruby 是纯面向对象的语言，Ruby 中的一切都是以对象的形式出现。Ruby 中的每个值都是一个对象，即使是最原始的东西：字符串、数字，甚至连 true 和 false 都是对象。类本身也是一个对象，是 Class 类的一个实例。本章将向您讲解所有与 Ruby 面向对象相关的主要功能。
+
+类用于指定对象的形式，它结合了数据表示法和方法，把数据整理成一个整齐的包。类中的数据和方法被称为类的成员。
+
+#### 类定义
+
+当您定义一个类时，您实际是定义了一个数据类型的蓝图。这实际上并没有定义任何的数据，而是定义了类的名称意味着什么，也就是说，定义了类的对象将由什么组成，以及在该对象上能执行什么操作。
+
+类定义以关键字 class 开始，后跟类名称，最后以一个 end 进行分隔表示终止该类定义。例如，我们使用关键字 class 来定义 Box 类，如下所示：
+
+```
+class Box
+   code
+end
+```
+
+按照惯例，名称必须以大写字母开头，如果包含多个单词，每个单词首字母大写，但此间没有分隔符（例如：CamelCase）。
+
+#### 定义对象
+
+类提供了对象的蓝图，所以基本上，对象是根据类进行创建的。我们使用 new 关键字声明类的对象。下面的语句声明了类 Box 的两个对象：
+
+```ruby
+box1 = Box.new
+box2 = Box.new
+```
+
+
+#### initialize 方法
+
+initialize 方法是一个标准的 Ruby 类方法，与其他面向对象编程语言中的 constructor 工作原理类似。当您想要在创建对象的同时初始化一些类变量，initialize 方法就派上用场了。该方法带有一系列参数，与其他 Ruby 方法一样，使用该方法时，必须在前面放置 def 关键字，如下所示：
+
+```ruby
+class Box
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+end
+```
+
+#### 实例变量
+
+实例变量是类属性，它们在使用类创建对象时就变成对象的属性。每个对象的属性是单独赋值的，和其他对象之间不共享值。在类的内部，是使用 @ 运算符访问这些属性，在类的外部，则是使用称为访问器方法的公共方法进行访问。下面我们以上面定义的类 Box 为实例，把 @width 和 @height 作为类 Box 的实例变量。
+
+```ruby
+class Box
+   def initialize(w,h)
+      # 给实例变量赋值
+      @width, @height = w, h
+   end
+end
+```
+
+#### 访问器 & 设置器 方法
+
+为了在类的外部使用变量，我们必须在访问器方法内部定义这些变量，这些访问器方法也被称为获取器方法。下面的实例演示了访问器方法的用法：
+
+```ruby
+#!/usr/bin/ruby -w
+
+# 定义类
+class Box
+   # 构造器方法
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+
+   # 访问器方法
+   def printWidth
+      @width
+   end
+
+   def printHeight
+      @height
+   end
+end
+
+# 创建对象
+box = Box.new(10, 20)
+
+# 使用访问器方法
+x = box.printWidth()
+y = box.printHeight()
+
+puts "Width of the box is : #{x}"
+puts "Height of the box is : #{y}"
+```
+
+与用于访问变量值的访问器方法类似，Ruby 提供了一种在类的外部设置变量值的方式，也就是所谓的设置器方法，定义如下：
+
+```ruby
+#!/usr/bin/ruby -w
+
+# 定义类
+class Box
+   # 构造器方法
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+
+   # 访问器方法
+   def getWidth
+      @width
+   end
+   def getHeight
+      @height
+   end
+
+   # 设置器方法
+   def setWidth=(value)
+      @width = value
+   end
+   def setHeight=(value)
+      @height = value
+   end
+end
+
+# 创建对象
+box = Box.new(10, 20)
+
+# 使用设置器方法
+box.setWidth = 30
+box.setHeight = 50
+
+# 使用访问器方法
+x = box.getWidth()
+y = box.getHeight()
+
+puts "Width of the box is : #{x}"
+puts "Height of the box is : #{y}"
+```
+
+#### 实例方法
+
+实例方法的定义与其他方法的定义一样，都是使用 def 关键字，但它们只能通过类实例来使用，如下面实例所示。它们的功能不限于访问实例变量，也能按照您的需求做更多其他的任务。
+
+```ruby
+#!/usr/bin/ruby -w
+
+# 定义类
+class Box
+   # constructor method
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+   # 实例方法
+   def getArea
+      @width * @height
+   end
+end
+
+# 创建对象
+box = Box.new(10, 20)
+
+# 调用实例方法
+a = box.getArea()
+puts "Area of the box is : #{a}"
+```
+
+
+#### 类方法 & 类变量
+
+类变量是在类的所有实例中共享的变量。换句话说，类变量的实例可以被所有的对象实例访问。类变量以两个 @ 字符（@@）作为前缀，类变量必须在类定义中被初始化，如下面实例所示。
+
+类方法使用 def self.methodname() 定义，类方法以 end 分隔符结尾。类方法可使用带有类名称的 classname.methodname 形式调用，如下面实例所示：
+
+
+```ruby
+#!/usr/bin/ruby -w
+
+class Box
+   # 初始化类变量
+   @@count = 0
+   def initialize(w,h)
+      # 给实例变量赋值
+      @width, @height = w, h
+
+      @@count += 1
+   end
+
+   def self.printCount()
+      puts "Box count is : #@@count"
+   end
+end
+
+# 创建两个对象
+box1 = Box.new(10, 20)
+box2 = Box.new(30, 100)
+
+# 调用类方法来输出盒子计数
+Box.printCount()
+```
+
+
+
+#### to_s 方法
+
+您定义的任何类都有一个 to_s 实例方法来返回对象的字符串表示形式。下面是一个简单的实例，根据 width 和 height 表示 Box 对象：
+
+```ruby
+#!/usr/bin/ruby -w
+
+class Box
+   # 构造器方法
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+   # 定义 to_s 方法
+   def to_s
+      "(w:#@width,h:#@height)"  # 对象的字符串格式
+   end
+end
+
+# 创建对象
+box = Box.new(10, 20)
+
+# 自动调用 to_s 方法
+puts "String representation of box is : #{box}"
+```
+
+
+
+#### 访问控制
+
+Ruby 为您提供了三个级别的实例方法保护，分别是 public、private 或 protected。Ruby 不在实例和类变量上应用任何访问控制。
+
+- Public 方法： Public 方法可被任意对象调用。默认情况下，方法都是 public 的，除了 initialize 方法总是 private 的。
+- Private 方法： Private 方法不能从类外部访问或查看。只有类方法可以访问私有成员。
+- Protected 方法： Protected 方法只能被类及其子类的对象调用。访问也只能在类及其子类内部进行。
+
+下面是一个简单的实例，演示了这三种修饰符的语法：
+
+```ruby
+#!/usr/bin/ruby -w
+
+# 定义类
+class Box
+   # 构造器方法
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+
+   # 实例方法默认是 public 的
+   def getArea
+      getWidth() * getHeight
+   end
+
+   # 定义 private 的访问器方法
+   def getWidth
+      @width
+   end
+   def getHeight
+      @height
+   end
+   # make them private
+   private :getWidth, :getHeight
+
+   # 用于输出面积的实例方法
+   def printArea
+      @area = getWidth() * getHeight
+      puts "Big box area is : #@area"
+   end
+   # 让实例方法是 protected 的
+   protected :printArea
+end
+
+# 创建对象
+box = Box.new(10, 20)
+
+# 调用实例方法
+a = box.getArea()
+puts "Area of the box is : #{a}"
+
+# 尝试调用 protected 的实例方法
+box.printArea()
+```
+
+### 类的继承
+
+
+继承，是面向对象编程中最重要的概念之一。继承允许我们根据另一个类定义一个类，这样使得创建和维护应用程序变得更加容易。
+
+继承有助于重用代码和快速执行，不幸的是，Ruby 不支持多继承，但是 Ruby 支持 mixins。mixin 就像是多继承的一个特定实现，在多继承中，只有接口部分是可继承的。
+
+当创建类时，程序员可以直接指定新类继承自某个已有类的成员，这样就不用从头编写新的数据成员和成员函数。这个已有类被称为基类或父类，新类被称为派生类或子类。
+
+Ruby 也提供了子类化的概念，子类化即继承，下面的实例解释了这个概念。扩展一个类的语法非常简单。只要添加一个 < 字符和父类的名称到类语句中即可。例如，下面定义了类 BigBox 是 Box 的子类：
+
+```ruby
+#!/usr/bin/ruby -w
+
+# 定义类
+class Box
+   # 构造器方法
+   def initialize(w,h)
+      @width, @height = w, h
+   end
+   # 实例方法
+   def getArea
+      @width * @height
+   end
+end
+
+# 定义子类
+class BigBox < Box
+
+   # 添加一个新的实例方法
+   def printArea
+      @area = @width * @height
+      puts "Big box area is : #@area"
+   end
+end
+
+# 创建对象
+box = BigBox.new(10, 20)
+
+# 输出面积
+box.printArea()
+```
