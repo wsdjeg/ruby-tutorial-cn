@@ -96,6 +96,7 @@
   - [访问控制](#访问控制)
   - [类的继承](#类的继承)
   - [方法重载](#方法重载)
+  - [运算符重载](#运算符重载)
 
 <!-- vim-markdown-toc -->
 
@@ -2483,4 +2484,35 @@ box = BigBox.new(10, 20)
 
 # 使用重载的方法输出面积
 box.getArea()
+```
+
+
+#### 运算符重载
+
+我们希望使用 + 运算符执行两个 Box 对象的向量加法，使用 * 运算符来把 Box 的 width 和 height 相乘，使用一元运算符 - 对 Box 的 width 和 height 求反。下面是一个带有数学运算符定义的 Box 类版本：
+
+
+```ruby
+#!/usr/bin/ruby -w
+class Box
+  def initialize(w,h) # 初始化 width 和 height
+    @width,@height = w, h
+  end
+
+  def +(other)         # 定义 + 来执行向量加法
+    Box.new(@width + other.width, @height + other.height)
+  end
+
+  def -@               # 定义一元运算符 - 来对 width 和 height 求反
+    Box.new(-@width, -@height)
+  end
+
+  def *(scalar)        # 执行标量乘法
+    Box.new(@width*scalar, @height*scalar)
+  end
+end
+
+box1 = Box.new(1,2)
+box2 = Box.new(2,4)
+puts box1 + box2
 ```
