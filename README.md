@@ -1,6 +1,8 @@
 ## Ruby 学习笔记
 
-本文主要使用 markdown 格式整理了 Ruby 编程语言学习的相关资料，可以直接在线阅读，也可以使用 SpaceVim 进行阅读：
+在入门学习 Ruby 的过程中，看了不少网上的教程，经常遇到的是明明代码和教程上完全一模一样，但是运行后各种报错。
+本文主要使用 markdown 格式整理了 Ruby 编程语言学习的相关资料，可以直接在线阅读。
+也可以克隆至本地，使用 SpaceVim 进行阅读，可以同时运行代码块中的 Ruby 脚本：
 
 1. 安装 SpaceVim
 2. 载入相关语言模块：`lang#markdown` 和 `lang#ruby`
@@ -2510,9 +2512,14 @@ class Box
   def *(scalar)        # 执行标量乘法
     Box.new(@width*scalar, @height*scalar)
   end
+  def to_s
+      "(w:#@width,h:#@height)"  # 对象的字符串格式
+  end
 end
 
 box1 = Box.new(1,2)
 box2 = Box.new(2,4)
+puts box1
+puts box2
 puts box1 + box2
 ```
