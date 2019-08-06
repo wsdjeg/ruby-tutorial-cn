@@ -1,7 +1,6 @@
 ## Ruby 学习笔记
 > ruby --version > ruby 2.6.1p33 (2019-01-30 revision 66950) [x64-mingw32]
 
-
 在入门学习 Ruby 的过程中，看了不少网上的教程，经常遇到的是明明代码和教程上完全一模一样，但是运行后各种报错。
 本文主要使用 markdown 格式整理了 Ruby 编程语言学习的相关资料，可以直接在线阅读。
 也可以克隆至本地，使用 SpaceVim 进行阅读，可以同时运行代码块中的 Ruby 脚本：
@@ -21,6 +20,11 @@
 
 <!-- vim-markdown-toc GFM -->
 
+- [简介](#简介)
+  - [特性](#特性)
+- [环境](#环境)
+  - [本地环境搭建](#本地环境搭建)
+  - [编辑器配置](#编辑器配置)
 - [运算符](#运算符)
   - [算术运算符](#算术运算符)
   - [比较运算符](#比较运算符)
@@ -107,6 +111,66 @@
   - [类信息](#类信息)
 
 <!-- vim-markdown-toc -->
+
+### 简介
+
+Ruby 是一种开源的面向对象程序设计的服务器端脚本语言，
+在 20 世纪 90 年代中期由日本的松本行弘（まつもとゆきひろ/Yukihiro Matsumoto）设计并开发。
+在 Ruby 社区，松本也被称为马茨（Matz）。Ruby 可运行于多种平台，如 Windows、MAC OS 和 UNIX 的各种版本。
+
+Ruby 的特性与 Smalltalk、Perl 和 Python 类似。Perl、Python 和 Smalltalk 是脚本语言。Smalltalk 是一个真正的面向对象语言。Ruby，与 Smalltalk 一样，是一个完美的面向对象语言。使用 Ruby 的语法比使用 Smalltalk 的语法要容易得多。
+
+#### 特性
+
+- Ruby 是开源的，在 Web 上免费提供，但需要一个许可证。
+- Ruby 是一种通用的、解释的编程语言。
+- Ruby 是一种真正的面向对象编程语言。
+- Ruby 是一种类似于 Python 和 Perl 的服务器端脚本语言。
+- Ruby 可以用来编写通用网关接口（CGI）脚本。
+- Ruby 可以被嵌入到超文本标记语言（HTML）。
+- Ruby 语法简单，这使得新的开发人员能够快速轻松地学习 Ruby。
+- Ruby 与 C++ 和 Perl 等许多编程语言有着类似的语法。
+- Ruby 可扩展性强，用 Ruby 编写的大程序易于维护。
+- Ruby 可用于开发的 Internet 和 Intranet 应用程序。
+- Ruby 可以安装在 Windows 和 POSIX 环境中。
+- Ruby 支持许多 GUI 工具，比如 Tcl/Tk、GTK 和 OpenGL。
+- Ruby 可以很容易地连接到 DB2、MySQL、Oracle 和 Sybase。
+- Ruby 有丰富的内置函数，可以直接在 Ruby 脚本中使用。
+
+### 环境
+
+#### 本地环境搭建
+
+在 Windows 系统下 推荐使用 scoop 安装 ruby：
+
+```
+scoop install ruby
+```
+
+在 Linux 环境下，根据当前发行版本，使用对于的包管理器安装 ruby：
+
+**ArchLinux:**
+
+```
+sudo pacman -S ruby
+```
+
+**Ubuntu:**
+
+```
+sudo apt-get install ruby
+```
+
+#### 编辑器配置
+
+推荐使用 SpaceVim，可根据其[《入门指南》](https://spacevim.org/cn/quick-start-guide/)来安装。
+
+安装完成后，只需要载入 `lang#ruby` 模块即可：
+
+```toml
+[[layers]]
+    name = 'lang#ruby'
+```
 
 ### 运算符
 
